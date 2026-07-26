@@ -1,64 +1,14 @@
-use serde::{Deserialize, Serialize};
+use tauri::State;
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct ServerConfig {
-    pub id: String,
-    pub name: String,
-    pub address: String,
-    pub port: u16,
-    pub public_key: String,
-    pub endpoint: String,
-    pub dns: Option<String>,
-    pub allowed_ips: Vec<String>,
-    pub last_connected: Option<u64>,
-    pub latency_ms: Option<u32>,
-}
+use crate::config::servers::{ServerConfig, ServerStore};
 
-/// List all saved servers.
+/// List all saved servers (persisted to disk).
 #[tauri::command]
-pub fn list_servers() -> Result<Vec<ServerConfig>, String> {
-    // Stub: return sample servers
-    Ok(vec![
-        ServerConfig {
-            id: "srv-001".to_string(),
-            name: "US East (Virginia)".to_string(),
-            address: "10.0.0.2/32".to_string(),
-            port: 51820,
-            public_key: "SamplePublicKey1==".to_string(),
-            endpoint: "us-east.example.com".to_string(),
-            dns: Some("1.1.1.1".to_string()),
-            allowed_ips: vec!["0.0.0.0/0".to_string()],
-            last_connected: None,
-            latency_ms: Some(42),
-        },
-        ServerConfig {
-            id: "srv-002".to_string(),
-            name: "EU West (Amsterdam)".to_string(),
-            address: "10.0.0.3/32".to_string(),
-            port: 51820,
-            public_key: "SamplePublicKey2==".to_string(),
-            endpoint: "eu-west.example.com".to_string(),
-            dns: Some("1.1.1.1".to_string()),
-            allowed_ips: vec!["0.0.0.0/0".to_string()],
-            last_connected: None,
-            latency_ms: Some(128),
-        },
-        ServerConfig {
-            id: "srv-003".to_string(),
-            name: "Asia Pacific (Tokyo)".to_string(),
-            address: "10.0.0.4/32".to_string(),
-            port: 51820,
-            public_key: "SamplePublicKey3==".to_string(),
-            endpoint: "ap.example.com".to_string(),
-            dns: Some("1.1.1.1".to_string()),
-            allowed_ips: vec!["0.0.0.0/0".to_string()],
-            last_connected: None,
-            latency_ms: Some(185),
-        },
-    ])
+pub fn list_servers(store: State<'_, ServerStore>) -> Result<Vec<ServerConfig>, String> {
+    Ok(store.get_servers())
 }
 
-/// Add a new server configuration.
+/// Add a new server configuration manually (no .conf file).
 #[tauri::command]
 pub fn add_server(
     name: String,
@@ -66,21 +16,35 @@ pub fn add_server(
     public_key: String,
     address: String,
     dns: Option<String>,
+    store: State<'_, ServerStore>,
 ) -> Result<ServerConfig, String> {
     log::info!("Adding server: {} ({})", name, endpoint);
 
-    Ok(ServerConfig {
+    let server = ServerConfig {
         id: uuid::Uuid::new_v4().to_string(),
         name,
         address,
-        port: 51820,
+        port: endpoint
+            .split(':')
+            .last()
+            .and_then(|p| p.parse().ok())
+            .unwrap_or(51820),
         public_key,
         endpoint,
         dns,
         allowed_ips: vec!["0.0.0.0/0".to_string()],
         last_connected: None,
         latency_ms: None,
-    })
+        private_key: None,
+        favorite: false,
+        country: None,
+        country_name: None,
+        city: None,
+        built_in: false,
+    };
+
+    store.add_server(server.clone());
+    Ok(server)
 }
 
 /// Update an existing server configuration.
@@ -92,48 +56,124 @@ pub fn update_server(
     public_key: Option<String>,
     address: Option<String>,
     dns: Option<String>,
+    store: State<'_, ServerStore>,
 ) -> Result<ServerConfig, String> {
     log::info!("Updating server: {}", id);
 
-    // Stub: return updated config
-    Ok(ServerConfig {
-        id: id.clone(),
-        name: name.unwrap_or_else(|| "Updated Server".to_string()),
-        address: address.unwrap_or_else(|| "10.0.0.2/32".to_string()),
-        port: 51820,
-        public_key: public_key.unwrap_or_else(|| "UpdatedKey==".to_string()),
-        endpoint: endpoint.unwrap_or_else(|| "updated.example.com".to_string()),
-        dns,
-        allowed_ips: vec!["0.0.0.0/0".to_string()],
-        last_connected: None,
-        latency_ms: None,
-    })
+    store
+        .update_server(&id, |s| {
+            if let Some(v) = name {
+                s.name = v;
+            }
+            if let Some(v) = endpoint {
+                s.endpoint = v;
+            }
+            if let Some(v) = public_key {
+                s.public_key = v;
+            }
+            if let Some(v) = address {
+                s.address = v;
+            }
+            s.dns = dns.clone();
+        })
+        .ok_or_else(|| format!("Server '{}' not found", id))
 }
 
 /// Remove a server by ID.
 #[tauri::command]
-pub fn remove_server(id: String) -> Result<(), String> {
+pub fn remove_server(id: String, store: State<'_, ServerStore>) -> Result<(), String> {
     log::info!("Removing server: {}", id);
+    store.remove_server(&id);
     Ok(())
 }
 
 /// Import a WireGuard .conf file and add it as a server.
-/// TODO: Parse real .conf format from file path.
 #[tauri::command]
-pub fn import_conf(path: String) -> Result<ServerConfig, String> {
+pub async fn import_conf(path: String, store: State<'_, ServerStore>) -> Result<ServerConfig, String> {
     log::info!("Importing config from: {}", path);
 
-    // Stub: parse would go here
-    Ok(ServerConfig {
+    let content = std::fs::read_to_string(&path)
+        .map_err(|e| format!("Cannot read {}: {}", path, e))?;
+
+    let wg = crate::vpn::config::parse_conf(&content)?;
+
+    // Derive a display name from the file stem.
+    let name = std::path::Path::new(&path)
+        .file_stem()
+        .and_then(|s| s.to_str())
+        .unwrap_or("Imported Server")
+        .to_string();
+
+    let server = ServerConfig {
         id: uuid::Uuid::new_v4().to_string(),
-        name: "Imported Server".to_string(),
-        address: "10.0.0.5/32".to_string(),
-        port: 51820,
-        public_key: "ImportedPublicKey==".to_string(),
-        endpoint: "imported.example.com".to_string(),
-        dns: Some("1.1.1.1".to_string()),
-        allowed_ips: vec!["0.0.0.0/0".to_string()],
+        name,
+        address: wg.interface.address.first().cloned().unwrap_or_default(),
+        port: wg
+            .peer
+            .endpoint
+            .split(':')
+            .last()
+            .and_then(|p| p.parse().ok())
+            .unwrap_or(51820),
+        public_key: wg.peer.public_key.clone(),
+        endpoint: wg.peer.endpoint.clone(),
+        dns: wg
+            .interface
+            .dns
+            .as_deref()
+            .and_then(|d| d.first())
+            .cloned(),
+        allowed_ips: wg.peer.allowed_ips.clone(),
         last_connected: None,
         latency_ms: None,
-    })
+        private_key: Some(wg.interface.private_key.clone()),
+        favorite: false,
+        country: None,
+        country_name: None,
+        city: None,
+        built_in: false,
+    };
+
+    store.add_server(server.clone());
+    Ok(server)
+}
+
+/// Toggle favorite status for a server.
+#[tauri::command]
+pub fn toggle_favorite(id: String, store: State<'_, ServerStore>) -> Result<ServerConfig, String> {
+    store
+        .toggle_favorite(&id)
+        .ok_or_else(|| format!("Server '{}' not found", id))
+}
+
+/// Get app settings.
+#[tauri::command]
+pub fn get_settings(store: State<'_, crate::config::store::AppSettings>) -> Result<crate::config::store::AppSettings, String> {
+    // `State<T>` itself is `Clone` (it's a cheap reference wrapper), so a bare
+    // `store.clone()` would clone the wrapper, not the inner settings. Deref
+    // explicitly to clone the `AppSettings` value.
+    Ok(store.inner().clone())
+}
+
+/// Save app settings.
+#[tauri::command]
+pub async fn save_settings(
+    settings: crate::config::store::AppSettings,
+    app_handle: tauri::AppHandle,
+) -> Result<(), String> {
+    crate::config::store::save_settings(&app_handle, &settings)
+        .map_err(|e| format!("Failed to save settings: {}", e))
+}
+
+/// Fetch community servers from a URL.
+#[tauri::command]
+pub async fn fetch_community_servers(
+    url: String,
+    store: State<'_, ServerStore>,
+) -> Result<Vec<ServerConfig>, String> {
+    let servers = crate::vpn::servers::community::fetch_community_servers(&url).await?;
+    for s in &servers {
+        store.add_server(s.clone());
+    }
+    Ok(servers)
 }

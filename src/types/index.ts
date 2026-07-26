@@ -9,6 +9,12 @@ export interface ServerConfig {
   allowed_ips: string[];
   last_connected: number | null;
   latency_ms: number | null;
+  /** ISO 3166-1 alpha-2 country code, e.g. "US", "DE". Optional. */
+  country?: string;
+  /** Human-readable country name, e.g. "United States". Optional. */
+  country_name?: string;
+  /** City name, e.g. "New York". Optional. */
+  city?: string;
 }
 
 export interface VpnStatus {

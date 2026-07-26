@@ -28,13 +28,6 @@
     "targets": "all",
     "category": "Utility",
     "shortDescription": "Self-hosted WireGuard VPN client.",
-    "longDescription": "ZeroVPN is a cross-platform WireGuard VPN client for self-hosted servers. Import your WireGuard configs, connect instantly, and manage split tunneling with a modern dashboard.",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ]
+    "longDescription": "ZeroVPN is a cross-platform WireGuard VPN client for self-hosted servers. Import your WireGuard configs, connect instantly, and manage split tunneling with a modern dashboard."
   }
 }

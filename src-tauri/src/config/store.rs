@@ -13,6 +13,9 @@ pub struct AppSettings {
     pub mtu: u32,
     pub last_used_server: Option<String>,
     pub theme: String,
+    /// URL to fetch community servers from.
+    #[serde(default)]
+    pub community_server_url: String,
 }
 
 impl Default for AppSettings {
@@ -26,11 +29,10 @@ impl Default for AppSettings {
             mtu: 1420,
             last_used_server: None,
             theme: "dark".to_string(),
+            community_server_url: String::new(),
         }
     }
 }
-
-static mut SETTINGS: Option<AppSettings> = None;
 
 fn get_config_path(app_handle: &tauri::AppHandle) -> PathBuf {
     let config_dir = app_handle
@@ -42,6 +44,7 @@ fn get_config_path(app_handle: &tauri::AppHandle) -> PathBuf {
 }
 
 /// Initialize the settings store. Called once at startup.
+/// Loads settings from disk and registers as managed Tauri state.
 pub fn init_store(app_handle: &tauri::AppHandle) -> Result<(), Box<dyn std::error::Error>> {
     let path = get_config_path(app_handle);
     let settings = if path.exists() {
@@ -54,16 +57,8 @@ pub fn init_store(app_handle: &tauri::AppHandle) -> Result<(), Box<dyn std::erro
         settings
     };
 
-    unsafe {
-        SETTINGS = Some(settings);
-    }
-
+    app_handle.manage(settings);
     Ok(())
-}
-
-/// Get current app settings.
-pub fn get_settings() -> AppSettings {
-    unsafe { SETTINGS.clone().unwrap_or_default() }
 }
 
 /// Save app settings to disk.
@@ -75,9 +70,7 @@ pub fn save_settings(
     let data = serde_json::to_string_pretty(settings)?;
     fs::write(&path, data)?;
 
-    unsafe {
-        SETTINGS = Some(settings.clone());
-    }
-
+    // Update the managed state.
+    app_handle.manage(settings.clone());
     Ok(())
 }

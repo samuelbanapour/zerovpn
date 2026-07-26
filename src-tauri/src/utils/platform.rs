@@ -18,8 +18,12 @@ pub fn get_wg_config_dir() -> Option<std::path::PathBuf> {
 pub fn is_admin() -> bool {
     match std::env::consts::OS {
         "linux" | "macos" => {
-            // Check if UID is 0
-            unsafe { libc::getuid() == 0 }
+            // `id -u` prints the effective UID; "0" means root.
+            std::process::Command::new("id")
+                .arg("-u")
+                .output()
+                .map(|o| o.stdout.starts_with(b"0"))
+                .unwrap_or(false)
         }
         "windows" => {
             // Check admin group membership (simplified)

@@ -1,0 +1,520 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		2AFD6806315BD2E2BDCC3AB4 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31E7106C806CF80F1A7322D /* MetalKit.framework */; };
+		2CED64C24FC4F819C6A95938 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 7E45A5072E1836AC4356346D /* main.mm */; };
+		3BA24D2A9C1DF783F10503C3 /* assets in Resources */ = {isa = PBXBuildFile; fileRef = 263EE80B31337F8AE72B1C23 /* assets */; };
+		71F5C1E9678AF436354974A7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 205FD839A2DEAF0A660A0382 /* CoreGraphics.framework */; };
+		814A9F470AD471AB34B4EE5F /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F812B23BFC78F845B4EBFF39 /* Metal.framework */; };
+		81A1F56BE5343088338054D6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65340B6829E4570B5F356060 /* UIKit.framework */; };
+		AA2D57323E4B70D7CD2EBEEC /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5C2B242241CFEFF6B9010BDC /* WebKit.framework */; };
+		CBAECDB3B99FA9FF050908BE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 512F7E1B1C15E8C0864990BD /* QuartzCore.framework */; };
+		E863D8C2DE8C64DD54454184 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99F824133E5C07F6C389A7D9 /* Security.framework */; };
+		EC42A567011BDBCF9B9A1CBD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95F3E202BC03324C971C65E1 /* Assets.xcassets */; };
+		F59EB859C854ADC293ACF2F1 /* libapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25A3CD5446BAEDD57BD9442F /* libapp.a */; };
+		FD98578A1CF3E6C6A3BBDAD0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B1C8A1AF80AF45BA29F98AB3 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		205FD839A2DEAF0A660A0382 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		255D842F09D6BFF7B8C43216 /* servers.rs */ = {isa = PBXFileReference; path = servers.rs; sourceTree = "<group>"; };
+		25A3CD5446BAEDD57BD9442F /* libapp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libapp.a; sourceTree = "<group>"; };
+		263EE80B31337F8AE72B1C23 /* assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = assets; sourceTree = SOURCE_ROOT; };
+		26864764A527CBD8FB8D6EE8 /* platform.rs */ = {isa = PBXFileReference; path = platform.rs; sourceTree = "<group>"; };
+		36622AC9A25D958CBF63C685 /* tunnel.rs */ = {isa = PBXFileReference; path = tunnel.rs; sourceTree = "<group>"; };
+		512F7E1B1C15E8C0864990BD /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		5C2B242241CFEFF6B9010BDC /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		600EFEF97E83A5B9C44F4134 /* mod.rs */ = {isa = PBXFileReference; path = mod.rs; sourceTree = "<group>"; };
+		646B0576FDA1160AD2D679FD /* mod.rs */ = {isa = PBXFileReference; path = mod.rs; sourceTree = "<group>"; };
+		65340B6829E4570B5F356060 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		7E45A5072E1836AC4356346D /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
+		81065D8C2DBA09C9F7887C48 /* vpn.rs */ = {isa = PBXFileReference; path = vpn.rs; sourceTree = "<group>"; };
+		8247CF46C190005D87BCCA56 /* zerovpn_iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = zerovpn_iOS.entitlements; sourceTree = "<group>"; };
+		8DF11F9FD256B6AC68EFD5BB /* mod.rs */ = {isa = PBXFileReference; path = mod.rs; sourceTree = "<group>"; };
+		8F6071E7C73CB3F2A1C0C6EE /* config.rs */ = {isa = PBXFileReference; path = config.rs; sourceTree = "<group>"; };
+		940B6B7FD4A33772A07CA693 /* bindings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bindings.h; sourceTree = "<group>"; };
+		943249E22EAF043E65018A07 /* mod.rs */ = {isa = PBXFileReference; path = mod.rs; sourceTree = "<group>"; };
+		95563E5633F1862CF510CD4C /* lib.rs */ = {isa = PBXFileReference; path = lib.rs; sourceTree = "<group>"; };
+		95F3E202BC03324C971C65E1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		9703393473D3FF786A6A9BA7 /* zerovpn_iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = zerovpn_iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99F824133E5C07F6C389A7D9 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		9AE02FD670C8EF984BCE4EA6 /* main.rs */ = {isa = PBXFileReference; path = main.rs; sourceTree = "<group>"; };
+		B1C8A1AF80AF45BA29F98AB3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		BD3D93336F94EC56740A0B3D /* wireguard.rs */ = {isa = PBXFileReference; path = wireguard.rs; sourceTree = "<group>"; };
+		C31E7106C806CF80F1A7322D /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+		CDF90E13FBE950E6CDF13E39 /* config.rs */ = {isa = PBXFileReference; path = config.rs; sourceTree = "<group>"; };
+		DA9A0DCD9F2CE7A0A3CC1FBD /* stats.rs */ = {isa = PBXFileReference; path = stats.rs; sourceTree = "<group>"; };
+		E378CACFA0AF4E5941B12346 /* store.rs */ = {isa = PBXFileReference; path = store.rs; sourceTree = "<group>"; };
+		F812B23BFC78F845B4EBFF39 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		F8596451C6E31A02625E7E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		F8F39DC1B5BB86FEE6BECB9D /* system.rs */ = {isa = PBXFileReference; path = system.rs; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7F4AA70E51F8BAFAD45E1E5F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F59EB859C854ADC293ACF2F1 /* libapp.a in Frameworks */,
+				71F5C1E9678AF436354974A7 /* CoreGraphics.framework in Frameworks */,
+				814A9F470AD471AB34B4EE5F /* Metal.framework in Frameworks */,
+				2AFD6806315BD2E2BDCC3AB4 /* MetalKit.framework in Frameworks */,
+				CBAECDB3B99FA9FF050908BE /* QuartzCore.framework in Frameworks */,
+				E863D8C2DE8C64DD54454184 /* Security.framework in Frameworks */,
+				81A1F56BE5343088338054D6 /* UIKit.framework in Frameworks */,
+				AA2D57323E4B70D7CD2EBEEC /* WebKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0901B07F316C8EF2A4E71D8E /* bindings */ = {
+			isa = PBXGroup;
+			children = (
+				940B6B7FD4A33772A07CA693 /* bindings.h */,
+			);
+			path = bindings;
+			sourceTree = "<group>";
+		};
+		2CA0D37EEBEAD9FB20A6AFA5 /* commands */ = {
+			isa = PBXGroup;
+			children = (
+				8F6071E7C73CB3F2A1C0C6EE /* config.rs */,
+				646B0576FDA1160AD2D679FD /* mod.rs */,
+				F8F39DC1B5BB86FEE6BECB9D /* system.rs */,
+				81065D8C2DBA09C9F7887C48 /* vpn.rs */,
+			);
+			path = commands;
+			sourceTree = "<group>";
+		};
+		3DB05D4D50554FA07C1C097B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				205FD839A2DEAF0A660A0382 /* CoreGraphics.framework */,
+				25A3CD5446BAEDD57BD9442F /* libapp.a */,
+				F812B23BFC78F845B4EBFF39 /* Metal.framework */,
+				C31E7106C806CF80F1A7322D /* MetalKit.framework */,
+				512F7E1B1C15E8C0864990BD /* QuartzCore.framework */,
+				99F824133E5C07F6C389A7D9 /* Security.framework */,
+				65340B6829E4570B5F356060 /* UIKit.framework */,
+				5C2B242241CFEFF6B9010BDC /* WebKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4506F15FC053B6B6BAB13A81 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				943249E22EAF043E65018A07 /* mod.rs */,
+				255D842F09D6BFF7B8C43216 /* servers.rs */,
+				E378CACFA0AF4E5941B12346 /* store.rs */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		4FB8367BB3100D2F988383C8 /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				8DF11F9FD256B6AC68EFD5BB /* mod.rs */,
+				26864764A527CBD8FB8D6EE8 /* platform.rs */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		5085B11A41F9A4B4A8907700 /* zerovpn */ = {
+			isa = PBXGroup;
+			children = (
+				7E45A5072E1836AC4356346D /* main.mm */,
+				0901B07F316C8EF2A4E71D8E /* bindings */,
+			);
+			path = zerovpn;
+			sourceTree = "<group>";
+		};
+		58935C1C4AA648457FA41123 /* Externals */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Externals;
+			sourceTree = "<group>";
+		};
+		6982BECB8EF75A574E8DD2F1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				95563E5633F1862CF510CD4C /* lib.rs */,
+				9AE02FD670C8EF984BCE4EA6 /* main.rs */,
+				2CA0D37EEBEAD9FB20A6AFA5 /* commands */,
+				4506F15FC053B6B6BAB13A81 /* config */,
+				4FB8367BB3100D2F988383C8 /* utils */,
+				D22E9D83D5E868217D26028A /* vpn */,
+			);
+			name = src;
+			path = ../../src;
+			sourceTree = "<group>";
+		};
+		98A04A4B47674B2428966D01 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				5085B11A41F9A4B4A8907700 /* zerovpn */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		9DA7C645638607B1D7F6B27A /* zerovpn_iOS */ = {
+			isa = PBXGroup;
+			children = (
+				F8596451C6E31A02625E7E11 /* Info.plist */,
+				8247CF46C190005D87BCCA56 /* zerovpn_iOS.entitlements */,
+			);
+			path = zerovpn_iOS;
+			sourceTree = "<group>";
+		};
+		D22E9D83D5E868217D26028A /* vpn */ = {
+			isa = PBXGroup;
+			children = (
+				CDF90E13FBE950E6CDF13E39 /* config.rs */,
+				600EFEF97E83A5B9C44F4134 /* mod.rs */,
+				DA9A0DCD9F2CE7A0A3CC1FBD /* stats.rs */,
+				36622AC9A25D958CBF63C685 /* tunnel.rs */,
+				BD3D93336F94EC56740A0B3D /* wireguard.rs */,
+			);
+			path = vpn;
+			sourceTree = "<group>";
+		};
+		DA9369A034B757865CE986C1 = {
+			isa = PBXGroup;
+			children = (
+				263EE80B31337F8AE72B1C23 /* assets */,
+				95F3E202BC03324C971C65E1 /* Assets.xcassets */,
+				B1C8A1AF80AF45BA29F98AB3 /* LaunchScreen.storyboard */,
+				58935C1C4AA648457FA41123 /* Externals */,
+				98A04A4B47674B2428966D01 /* Sources */,
+				6982BECB8EF75A574E8DD2F1 /* src */,
+				9DA7C645638607B1D7F6B27A /* zerovpn_iOS */,
+				3DB05D4D50554FA07C1C097B /* Frameworks */,
+				F73A51B7B38AB8B46258C6E3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F73A51B7B38AB8B46258C6E3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9703393473D3FF786A6A9BA7 /* zerovpn_iOS.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		00D06F62D5BB0716E85FE95D /* zerovpn_iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C2ACF8DE4ADBF164CA6902BA /* Build configuration list for PBXNativeTarget "zerovpn_iOS" */;
+			buildPhases = (
+				DEDC04814C86005E0AF251E6 /* Build Rust Code */,
+				5A4847E789F99F1F0C0C49FE /* Sources */,
+				E3B2B90588AC1C71AB16DE4F /* Resources */,
+				7F4AA70E51F8BAFAD45E1E5F /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = zerovpn_iOS;
+			packageProductDependencies = (
+			);
+			productName = zerovpn_iOS;
+			productReference = 9703393473D3FF786A6A9BA7 /* zerovpn_iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		76A4F90B6FF2B53678580EB6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+				};
+			};
+			buildConfigurationList = 7AB8CEFB626F1E8CA6BEC79F /* Build configuration list for PBXProject "zerovpn" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = DA9369A034B757865CE986C1;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = F73A51B7B38AB8B46258C6E3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				00D06F62D5BB0716E85FE95D /* zerovpn_iOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E3B2B90588AC1C71AB16DE4F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC42A567011BDBCF9B9A1CBD /* Assets.xcassets in Resources */,
+				FD98578A1CF3E6C6A3BBDAD0 /* LaunchScreen.storyboard in Resources */,
+				3BA24D2A9C1DF783F10503C3 /* assets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		DEDC04814C86005E0AF251E6 /* Build Rust Code */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Build Rust Code";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Externals/x86_64/${CONFIGURATION}/libapp.a",
+				"$(SRCROOT)/Externals/arm64/${CONFIGURATION}/libapp.a",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "npm run -- tauri ios xcode-script -v --platform ${PLATFORM_DISPLAY_NAME:?} --sdk-root ${SDKROOT:?} --framework-search-paths \"${FRAMEWORK_SEARCH_PATHS:?}\" --header-search-paths \"${HEADER_SEARCH_PATHS:?}\" --gcc-preprocessor-definitions \"${GCC_PREPROCESSOR_DEFINITIONS:-}\" --configuration ${CONFIGURATION:?} ${FORCE_COLOR} ${ARCHS:?}";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5A4847E789F99F1F0C0C49FE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2CED64C24FC4F819C6A95938 /* main.mm in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		589D28A9033145593C8B1DDC /* release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = release;
+		};
+		7989F75684E964337F61F201 /* debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = (
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = zerovpn_iOS/zerovpn_iOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
+				INFOPLIST_FILE = zerovpn_iOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$(PLATFORM_NAME) $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$(PLATFORM_NAME) $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samuelbanapour.zerovpn;
+				PRODUCT_NAME = "ZeroVPN";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = arm64;
+			};
+			name = debug;
+		};
+		D972DBBB58493E4DE6032502 /* debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = debug;
+		};
+		E6F88EDA4D09C62667238C82 /* release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ARCHS = (
+					arm64,
+				);
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = zerovpn_iOS/zerovpn_iOS.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_BITCODE = NO;
+				"EXCLUDED_ARCHS[sdk=iphoneos*]" = x86_64;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\".\"",
+				);
+				INFOPLIST_FILE = zerovpn_iOS/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				"LIBRARY_SEARCH_PATHS[arch=arm64]" = "$(inherited) $(PROJECT_DIR)/Externals/arm64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$(PLATFORM_NAME) $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				"LIBRARY_SEARCH_PATHS[arch=x86_64]" = "$(inherited) $(PROJECT_DIR)/Externals/x86_64/$(CONFIGURATION) $(SDKROOT)/usr/lib/swift $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/$(PLATFORM_NAME) $(DEVELOPER_DIR)/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift-5.0/$(PLATFORM_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.samuelbanapour.zerovpn;
+				PRODUCT_NAME = "ZeroVPN";
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = arm64;
+			};
+			name = release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7AB8CEFB626F1E8CA6BEC79F /* Build configuration list for PBXProject "zerovpn" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D972DBBB58493E4DE6032502 /* debug */,
+				589D28A9033145593C8B1DDC /* release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = debug;
+		};
+		C2ACF8DE4ADBF164CA6902BA /* Build configuration list for PBXNativeTarget "zerovpn_iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7989F75684E964337F61F201 /* debug */,
+				E6F88EDA4D09C62667238C82 /* release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 76A4F90B6FF2B53678580EB6 /* Project object */;
+}

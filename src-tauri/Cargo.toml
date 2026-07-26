@@ -13,13 +13,27 @@ name = "app_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
-tauri-build = { version = "2.1.0" }
+tauri-build = { version = "2.1.0", features = [] }
 
 [dependencies]
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 log = "0.4"
-tauri = { version = "2.1.0" }
+tauri = { version = "2.1.0", features = [] }
 tauri-plugin-log = "2"
+tauri-plugin-dialog = "2"
 uuid = { version = "1.10", features = ["v4"] }
 dirs = "5.0"
+reqwest = { version = "0.13", default-features = false, features = ["json", "default-tls"] }
+
+# WireGuard tunnel stack
+boringtun = "0.7"
+x25519-dalek = { version = "2", features = ["static_secrets"] }
+base64 = "0.22"
+
+# Async runtime (used for TUN/UDP pump loop)
+tokio = { version = "1", features = ["full"] }
+tokio-util = "0.7"
+
+# TUN virtual network interface
+tun-rs = { version = "2", features = ["async_tokio"] }

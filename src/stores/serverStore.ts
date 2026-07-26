@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import type { ServerConfig } from "../types";
-import { listServers, addServer, removeServer, updateServer } from "../lib/tauri";
+import { listServers, addServer, removeServer, updateServer, importConf } from "../lib/tauri";
 
 interface ServerStore {
   servers: ServerConfig[];
@@ -11,6 +11,7 @@ interface ServerStore {
   addServer: (name: string, endpoint: string, publicKey: string, address: string, dns: string | null) => Promise<void>;
   removeServer: (id: string) => Promise<void>;
   updateServer: (id: string, updates: Partial<ServerConfig>) => Promise<void>;
+  importConf: (path: string) => Promise<ServerConfig>;
   selectServer: (id: string | null) => void;
 }
 
@@ -66,6 +67,17 @@ export const useServerStore = create<ServerStore>((set) => ({
       }));
     } catch (err) {
       set({ error: String(err) });
+    }
+  },
+
+  importConf: async (path) => {
+    try {
+      const server = await importConf(path);
+      set((state) => ({ servers: [...state.servers, server], error: null }));
+      return server;
+    } catch (err) {
+      set({ error: String(err) });
+      throw err;
     }
   },
 

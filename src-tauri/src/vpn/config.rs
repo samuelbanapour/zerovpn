@@ -18,6 +18,10 @@ pub struct InterfaceConfig {
     pub post_up: Option<String>,
     pub pre_down: Option<String>,
     pub post_down: Option<String>,
+    /// Android only: raw file descriptor from VpnService.Builder.establish().
+    /// Skipped in serialization — supplied at runtime from the JNI/Java side.
+    #[serde(skip)]
+    pub android_fd: Option<i32>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -41,6 +45,7 @@ pub fn parse_conf(content: &str) -> Result<WireGuardConfig, String> {
         post_up: None,
         pre_down: None,
         post_down: None,
+        android_fd: None,
     };
     let mut peer = PeerConfig {
         public_key: String::new(),
