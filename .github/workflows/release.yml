@@ -1,0 +1,148 @@
+name: Release
+
+on:
+  workflow_dispatch: {}
+  push:
+    tags:
+      - "v*"
+
+# Caveat surfaced in the GitHub Release body below: the iOS build is
+# unsigned (no Apple Developer account available in CI) and will not
+# install via TestFlight/App Store/normal sideloading without the user
+# resigning it locally.
+env:
+  RELEASE_BODY: |
+    Automated multi-platform build of ZeroVPN.
+
+    **⚠️ iOS build is UNSIGNED.** No Apple Developer account is configured
+    in CI, so `zerovpn.ipa` is a mechanically-valid but unsigned archive.
+    It will **not** install via TestFlight, the App Store, or normal
+    sideloading. To use it, resign it yourself with your own Apple ID via
+    Xcode, AltStore, Sideloadly, etc.
+
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: macos-latest
+            args: "--target aarch64-apple-darwin"
+            rust-target: aarch64-apple-darwin
+          - platform: macos-latest
+            args: "--target x86_64-apple-darwin"
+            rust-target: x86_64-apple-darwin
+          - platform: windows-latest
+            args: ""
+            rust-target: ""
+          - platform: windows-11-arm
+            args: "--target aarch64-pc-windows-msvc"
+            rust-target: aarch64-pc-windows-msvc
+          - platform: ubuntu-22.04
+            args: ""
+            rust-target: ""
+
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Linux system dependencies
+        if: matrix.platform == 'ubuntu-22.04'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.rust-target }}
+
+      - name: Rust cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Build and release Tauri app
+        uses: tauri-apps/tauri-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tagName: zerovpn-v__VERSION__
+          releaseName: "ZeroVPN v__VERSION__"
+          releaseBody: ${{ env.RELEASE_BODY }}
+          releaseDraft: true
+          prerelease: false
+          args: ${{ matrix.args }}
+
+  ios:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get app version
+        id: version
+        run: echo "version=$(node -p "require('./src-tauri/tauri.conf.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-ios
+
+      - name: Rust cache
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri -> target
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Initialize iOS project
+        run: npx tauri ios init --ci
+
+      - name: Build unsigned iOS IPA
+        run: npx tauri ios build --target aarch64 --no-sign --ci
+
+      - name: Locate built IPA
+        id: find_ipa
+        run: |
+          IPA_PATH=$(find src-tauri/gen/apple -iname "*.ipa" | head -n1)
+          if [ -z "$IPA_PATH" ]; then
+            echo "::error::No .ipa file found under src-tauri/gen/apple after build"
+            exit 1
+          fi
+          echo "Found IPA: $IPA_PATH"
+          echo "ipa_path=$IPA_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Attach IPA to release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: zerovpn-v${{ steps.version.outputs.version }}
+          name: "ZeroVPN v${{ steps.version.outputs.version }}"
+          body: ${{ env.RELEASE_BODY }}
+          draft: true
+          prerelease: false
+          files: ${{ steps.find_ipa.outputs.ipa_path }}
